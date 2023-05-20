@@ -12,7 +12,7 @@ let port = process.env.PORT;
 let directory = __dirnmae + '/public';
 
 /* if we aren't on Heroku, then we need to adjust our port and directory */
-if ((typeof port == 'undefined') | | (port === null)){
+if ((typeof port == 'undefined') || (port === null)){
     port = 8080;
     directory = './public';
 }
@@ -24,7 +24,7 @@ let app = http.createServer(
     function(request,response){
         request.addListener('end',
         function(){
-            file.server(request,response);
+            file.serve(request,response);
         }
         ).resume();
     }
