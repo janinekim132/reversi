@@ -59,20 +59,20 @@ function makeInvitedButton(socket_id) {
 function makePlayButton(socket_id) {
     let newHTML = "<button type= 'button' class='btn btn-success'>Play</button>";
     let newNode = $(newHTML);
+    newNode.click(() => {
+        let payload = {
+       requested_user: socket_id
+     }
+        console.log('**** Client log message, sending \'game_start\' command: '+JSON.stringify(payload));
+        socket.emit('game_start', payload);
+}
+);
     return newNode;
 }
 
 function makeStartGameButton() {
     let newHTML = "<button type= 'button' class='btn btn-danger'>Starting Game</button>";
     let newNode = $(newHTML);
-    newNode.click(() => {
-        let payload = {
-       requested_user: socket_id
-   }
-   console.log('**** Client log message, sending \'game_start\' command: '+JSON.stringify(payload));
-   socket.emit('game_start', payload);
-}
-);
     return newNode;
 }
 
