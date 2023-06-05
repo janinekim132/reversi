@@ -552,7 +552,7 @@ function send_game_update(socket,game_id,message) {
                 }
                 else {
                     /* This player should be kicked out */
-                    console.log("Kicking " + first + " out of game: " + game_id);
+                    console.log("Kicking " + second + " out of game: " + game_id);
                     io.in(second).socketsLeave([game_id]);
                 }
             }
