@@ -255,6 +255,8 @@ let old_board = [
     ['?','?','?','?','?','?','?','?']
 ];
 
+let my_color = "";
+
 socket.on('game_update', (payload) => {
     if(( typeof payload == 'undefined') || (payload === null)) {
         console.log('Server did not send a payload');
@@ -266,12 +268,26 @@ socket.on('game_update', (payload) => {
     }
 
     let board = payload.game.board;
-    if(( typeof board == 'undefined') || (boardd === null)) {
+    if(( typeof board == 'undefined') || (board === null)) {
         console.log('Server did not send a valid board to display');
         return;
     }
 
     /* Update my color */
+    if (socket.id === payload.game.player_white.socket){
+        my_color = 'white';
+    }
+    else if (socket.id === payload.game.player_black.socket){
+        my_color = 'black';
+    }
+    else {
+        window.location.href= 'lobby.html?username=' + username;
+        return;
+    }
+
+    $("#my_color").html('<h3> id="my_color">I am '+my_color+'</h3>');
+
+
 
     /* Animate changes to the board */
     for (let row = 0; row < 8; row++){
@@ -280,39 +296,39 @@ socket.on('game_update', (payload) => {
             if(old_board[row][column] !== board[row][column]) {
                 let graphic = "";
                 let altTag = "";
-                if((old_board[row][column] !== '?') ** (board[row][column] === ' ')) {
+                if((old_board[row][column] !== '?') && (board[row][column] === ' ')) {
                     graphic = "empty.gif";
                     altTag = "empty space";
                 }
-                else if((old_board[row][column] !== '?') ** (board[row][column] === 'w')) {
+                else if((old_board[row][column] !== '?') && (board[row][column] === 'w')) {
                     graphic = "empty_to_white.gif";
                     altTag = "white token";
                 }
-                else if((old_board[row][column] !== '?') ** (board[row][column] === 'b')) {
+                else if((old_board[row][column] !== '?') && (board[row][column] === 'b')) {
                     graphic = "empty_to_black.gif";
                     altTag = "black token";
                 }
-                else if((old_board[row][column] !== ' ') ** (board[row][column] === 'w')) {
+                else if((old_board[row][column] !== ' ') && (board[row][column] === 'w')) {
                     graphic = "empty_to_white.gif";
                     altTag = "white token";
                 }
-                else if((old_board[row][column] !== ' ') ** (board[row][column] === 'b')) {
+                else if((old_board[row][column] !== ' ') && (board[row][column] === 'b')) {
                     graphic = "empty_to_black.gif";
                     altTag = "black token";
                 }
-                else if((old_board[row][column] !== ' ') ** (board[row][column] === ' ')) {
+                else if((old_board[row][column] !== 'w') && (board[row][column] === ' ')) {
                     graphic = "white_to_empty.gif";
                     altTag = "empty space";
                 }
-                else if((old_board[row][column] !== ' ') ** (board[row][column] === ' ')) {
+                else if((old_board[row][column] !== 'b') && (board[row][column] === ' ')) {
                     graphic = "black_to_empty.gif";
                     altTag = "empty space";
                 }
-                else if((old_board[row][column] !== ' ') ** (board[row][column] === 'b')) {
+                else if((old_board[row][column] !== 'w') && (board[row][column] === 'b')) {
                     graphic = "white_to_black.gif";
                     altTag = "black token";
                 }
-                else if((old_board[row][column] !== ' ') ** (board[row][column] === 'w')) {
+                else if((old_board[row][column] !== 'b') && (board[row][column] === 'w')) {
                     graphic = "black_to_white.gif";
                     altTag = "white token";
                 }
