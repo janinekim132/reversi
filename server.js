@@ -566,7 +566,6 @@ function send_game_update(socket,game_id,message) {
         }
         io.of("/").to(game_id).emit('game_update', payload);
     })
-
     
      /* Check if the game is over */
 }
